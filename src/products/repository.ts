@@ -21,7 +21,6 @@ export default {
       await Details.create(body, { raw: true, transaction });
       await DetailImages.create(body, { raw: true, transaction });
       await PackageQuantitys.create(body, { raw: true, transaction });
-      await States.create(body, { raw: true, transaction });
     }).catch((err) => {
       throw err;
     })
