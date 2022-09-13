@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 
 export default {
   get: (req: Request, res: Response) => {
-    return res.json({ message: "success" })
+    const data = service.get()
+    return res.json({ data: data, message: "success" })
   }
 }
