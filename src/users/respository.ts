@@ -12,17 +12,18 @@ export default {
     await Users.create({ ...body, ...{ password: hashInfo.hash, salt: hashInfo.salt } });
   },
   login: async (body: any) => {
-    const user = await Users.findOne({ where: { email: body.email } });
+    const user = await Users.findOne({ where: { email: body.email }, raw: true });
 
     if (!user) {
       throw new Error();
     }
 
-    const newPassword = module.makePasswordHashed(user.password, user.salt)
+    const newHashedPassword = module.makePasswordHashed(body.password, user.salt)
 
-    if (newPassword !== user.password) {
+    if (newHashedPassword !== user.password) {
       throw new Error();
     }
+
     return user.id
   },
 }
