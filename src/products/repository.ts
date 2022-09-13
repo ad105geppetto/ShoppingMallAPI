@@ -78,10 +78,6 @@ export default {
         where: { detail_id: detail },
         transaction
       });
-      await States.update(body, {
-        where: { detail_id: detail },
-        transaction
-      });
 
     }).catch((err) => {
       throw err;
