@@ -1,7 +1,7 @@
 import { Table, Model, Column, DataType } from "sequelize-typescript"
 
 @Table({
-  timestamps: true,
+  timestamps: false,
   tableName: "products"
 })
 export class Products extends Model {
@@ -16,4 +16,22 @@ export class Products extends Model {
     allowNull: false
   })
   thumbnail_image_path!: string;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false
+  })
+  created_at!: string;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false
+  })
+  updated_at!: string;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false
+  })
+  deleted_at!: string;
 }
