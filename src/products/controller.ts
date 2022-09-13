@@ -22,5 +22,16 @@ export default {
         error: "Internal Server Error",
       });
     }
-  }
+  },
+  getOne: async (req: Request, res: Response) => {
+    try {
+      const productId = Number(req.params.id)
+      const data = await service.getOne(productId)
+      return res.status(StatusCodes.OK).json({ data: data, message: "success" })
+    } catch (error: any) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+        error: "Internal Server Error",
+      });
+    }
+  },
 }
