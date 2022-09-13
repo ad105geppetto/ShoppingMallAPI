@@ -1,7 +1,8 @@
 import { Table, Model, Column, DataType } from "sequelize-typescript"
 
 @Table({
-  timestamps: false,
+  paranoid: true,
+  timestamps: true,
   tableName: "details"
 })
 export class Details extends Model {
@@ -46,22 +47,4 @@ export class Details extends Model {
     allowNull: false
   })
   phone_number!: string;
-
-  @Column({
-    type: DataType.DATE,
-    allowNull: false
-  })
-  created_at!: string;
-
-  @Column({
-    type: DataType.DATE,
-    allowNull: false
-  })
-  updated_at!: string;
-
-  @Column({
-    type: DataType.DATE,
-    allowNull: false
-  })
-  deleted_at!: string;
 }

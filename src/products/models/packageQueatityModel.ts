@@ -1,10 +1,19 @@
 import { Table, Model, Column, DataType } from "sequelize-typescript"
 
 @Table({
-  timestamps: false,
+  paranoid: true,
+  timestamps: true,
   tableName: "package_quantitys"
 })
 export class PackageQuantitys extends Model {
+  @Column({
+    type: DataType.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false
+  })
+  id!: number;
+
   @Column({
     type: DataType.INTEGER,
     allowNull: false
@@ -28,22 +37,4 @@ export class PackageQuantitys extends Model {
     allowNull: false
   })
   state_id!: number;
-
-  @Column({
-    type: DataType.DATE,
-    allowNull: false
-  })
-  created_at!: string;
-
-  @Column({
-    type: DataType.DATE,
-    allowNull: false
-  })
-  updated_at!: string;
-
-  @Column({
-    type: DataType.DATE,
-    allowNull: false
-  })
-  deleted_at!: string;
 }
