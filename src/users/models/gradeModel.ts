@@ -5,7 +5,7 @@ import { Table, Model, Column, DataType } from "sequelize-typescript"
   timestamps: true,
   tableName: "users"
 })
-export class Users extends Model {
+export class Grades extends Model {
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
