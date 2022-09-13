@@ -1,5 +1,5 @@
 import express from 'express'
-import { sequelize } from './db';
+import connection from './db';
 import indexRouter from "./routes";
 const app = express()
 const port = 3000
@@ -9,9 +9,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/", indexRouter);
 
-sequelize.sync().then(() => {
+connection.sync().then(() => {
   console.log("Database synced successfully")
-}).catch((err) => {
+}).catch((err: Error) => {
   console.log("Error", err)
 })
 
