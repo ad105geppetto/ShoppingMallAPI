@@ -7,4 +7,7 @@ export default {
   login: async (body: any) => {
     return await repository.login(body)
   },
+  dropout: async (userId: number) => {
+    return await repository.dropout(userId)
+  },
 }
