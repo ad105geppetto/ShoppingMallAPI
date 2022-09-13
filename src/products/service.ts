@@ -13,4 +13,7 @@ export default {
   patch: async (productId: number, body: any) => {
     return await repository.patch(productId, body)
   },
+  delete: async (productId: number) => {
+    return await repository.delete(productId)
+  },
 }
