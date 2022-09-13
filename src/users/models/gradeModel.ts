@@ -3,7 +3,7 @@ import { Table, Model, Column, DataType } from "sequelize-typescript"
 @Table({
   paranoid: true,
   timestamps: true,
-  tableName: "users"
+  tableName: "grades"
 })
 export class Grades extends Model {
   @Column({
