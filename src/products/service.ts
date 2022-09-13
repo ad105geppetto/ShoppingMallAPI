@@ -9,5 +9,8 @@ export default {
   },
   getOne: async (productId: number) => {
     return await repository.getOne(productId)
-  }
+  },
+  patch: async (productId: number, body: any) => {
+    return await repository.patch(productId, body)
+  },
 }
