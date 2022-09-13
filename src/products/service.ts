@@ -1,8 +1,8 @@
 import repository from "./repository";
 
 export default {
-  getAll: () => {
-    return repository.getAll()
+  getAll: async () => {
+    return await repository.getAll()
   },
   post: (body: any) => {
     return repository.post(body)

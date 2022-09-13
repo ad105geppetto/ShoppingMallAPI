@@ -6,8 +6,38 @@ import { States } from '../products/models/stateModel';
 import connection from '../db';
 
 export default {
-  getAll: () => {
-    return "hello"
+  getAll: async () => {
+    return await connection.transaction(async (transaction) => {
+      const data = await Products.findAll({
+        include: [{
+          model: Details,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "deletedAt"]
+          }
+        }, {
+          model: DetailImages,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "deletedAt"]
+          }
+        }, {
+          model: PackageQuantitys,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "deletedAt"]
+          }
+        }, {
+          model: States,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "deletedAt"]
+          }
+        }], attributes: {
+          exclude: ["createdAt", "updatedAt", "deletedAt"]
+        }, raw: true, transaction
+      });
+
+      return data
+    }).catch((err) => {
+      throw err;
+    })
   },
   post: (body: any) => {
     connection.transaction(async (transaction) => {
