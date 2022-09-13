@@ -2,20 +2,14 @@ import { Table, Model, Column, DataType } from "sequelize-typescript"
 
 @Table({
   timestamps: false,
-  tableName: "products"
+  tableName: "states"
 })
-export class Products extends Model {
+export class States extends Model {
   @Column({
     type: DataType.STRING,
     allowNull: false
   })
-  title!: string;
-
-  @Column({
-    type: DataType.STRING,
-    allowNull: false
-  })
-  thumbnail_image_path!: string;
+  type!: string;
 
   @Column({
     type: DataType.DATE,

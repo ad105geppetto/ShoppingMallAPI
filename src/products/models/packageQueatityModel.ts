@@ -2,20 +2,32 @@ import { Table, Model, Column, DataType } from "sequelize-typescript"
 
 @Table({
   timestamps: false,
-  tableName: "products"
+  tableName: "package_quantitys"
 })
-export class Products extends Model {
+export class PackageQuantitys extends Model {
   @Column({
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: false
   })
-  title!: string;
+  detail_id!: number;
 
   @Column({
     type: DataType.STRING,
     allowNull: false
   })
-  thumbnail_image_path!: string;
+  package_quantity!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false
+  })
+  price!: string;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
+  state_id!: number;
 
   @Column({
     type: DataType.DATE,
