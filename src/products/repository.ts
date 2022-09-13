@@ -60,4 +60,31 @@ export default {
       throw err;
     })
   },
+  patch: async (productId: number, body: any) => {
+    return await connection.transaction(async (transaction) => {
+      await Products.update(body, {
+        where: { id: productId },
+        transaction
+      });
+      const detail = await Details.update(body, {
+        where: { id: productId },
+        transaction
+      });
+      await DetailImages.update(body, {
+        where: { detail_id: detail },
+        transaction
+      });
+      await PackageQuantitys.update(body, {
+        where: { detail_id: detail },
+        transaction
+      });
+      await States.update(body, {
+        where: { detail_id: detail },
+        transaction
+      });
+
+    }).catch((err) => {
+      throw err;
+    })
+  },
 }
