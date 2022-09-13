@@ -6,7 +6,7 @@ export default {
   },
   post: async (body: any) => {
     return await repository.post(body)
-  }
+  },
   getOne: async (productId: number) => {
     return await repository.getOne(productId)
   }
