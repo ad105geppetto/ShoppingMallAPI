@@ -87,4 +87,27 @@ export default {
       throw err;
     })
   },
+  delete: async (productId: number) => {
+    return await connection.transaction(async (transaction) => {
+      await Products.destroy({
+        where: { id: productId },
+        transaction,
+      });
+      await Details.destroy({
+        where: { id: productId },
+        transaction,
+      });
+      await DetailImages.destroy({
+        where: { detail_id: productId },
+        transaction,
+      });
+      await PackageQuantitys.destroy({
+        where: { detail_id: productId },
+        transaction,
+      });
+
+    }).catch((err) => {
+      throw err;
+    })
+  },
 }
