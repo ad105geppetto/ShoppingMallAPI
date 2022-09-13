@@ -44,11 +44,6 @@ export default {
           attributes: {
             exclude: ["createdAt", "updatedAt", "deletedAt"]
           }
-        }, {
-          model: States,
-          attributes: {
-            exclude: ["createdAt", "updatedAt", "deletedAt"]
-          }
         }], attributes: {
           exclude: ["createdAt", "updatedAt", "deletedAt"]
         }, raw: true, transaction
