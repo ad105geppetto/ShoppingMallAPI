@@ -10,8 +10,12 @@ export default {
       return res.json({ message: error.message });
     }
   },
-  post: (req: Request, res: Response) => {
-    service.post(req.body)
-    return res.json({ message: "success" })
+  post: async (req: Request, res: Response) => {
+    try {
+      service.post(req.body)
+      return res.json({ message: "success" })
+    } catch (error: any) {
+      return res.json({ message: error.message });
+    }
   }
 }

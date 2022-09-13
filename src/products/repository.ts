@@ -39,8 +39,8 @@ export default {
       throw err;
     })
   },
-  post: (body: any) => {
-    connection.transaction(async (transaction) => {
+  post: async (body: any) => {
+    await connection.transaction(async (transaction) => {
       await Products.create(body, { raw: true, transaction });
       await Details.create(body, { raw: true, transaction });
       await DetailImages.create(body, { raw: true, transaction });
