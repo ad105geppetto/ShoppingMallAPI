@@ -6,10 +6,10 @@ import { Table, Model, Column, DataType } from "sequelize-typescript"
 })
 export class DetailImages extends Model {
   @Column({
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: false
   })
-  detail_id!: string;
+  detail_id!: number;
 
   @Column({
     type: DataType.STRING,
