@@ -13,4 +13,25 @@ export default {
       });
     }
   },
+  login: async (req: Request, res: Response) => {
+    try {
+      const data = await service.login(req.body)
+      return res.status(StatusCodes.OK).json({ data: data, message: "success" })
+    } catch (error: any) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+        error: "Internal Server Error",
+      });
+    }
+  },
+  dropout: async (req: Request, res: Response) => {
+    try {
+      const userId = Number(req.params.id);
+      const data = await service.dropout(userId)
+      return res.status(StatusCodes.OK).json({ data: data, message: "success" })
+    } catch (error: any) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+        error: "Internal Server Error",
+      });
+    }
+  },
 }
