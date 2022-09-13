@@ -1,5 +1,6 @@
 import { Users } from "./models/usersModel"
 import module from "./modules/hashPassword"
+import connection from '../db';
 
 interface user {
   password: string,
@@ -25,5 +26,19 @@ export default {
     }
 
     return user.id
+  },
+  dropout: async (userId: number) => {
+    return await connection.transaction(async (transaction) => {
+      const user = await Users.findOne({ where: { id: userId }, raw: true, transaction });
+
+      if (!user) {
+        throw new Error();
+      }
+
+      await Users.destroy({
+        where: { id: userId },
+        transaction,
+      });
+    })
   },
 }
