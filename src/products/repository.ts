@@ -1,7 +1,7 @@
 import repository from "./repository";
 
 export default {
-  get: () => {
+  getAll: () => {
     return "hello"
   }
 }
