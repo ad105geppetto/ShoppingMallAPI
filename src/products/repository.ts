@@ -7,37 +7,13 @@ import connection from '../db';
 
 export default {
   getAll: async () => {
-    return await connection.transaction(async (transaction) => {
-      const data = await Products.findAll({
-        include: [{
-          model: Details,
-          attributes: {
-            exclude: ["createdAt", "updatedAt", "deletedAt"]
-          }
-        }, {
-          model: DetailImages,
-          attributes: {
-            exclude: ["createdAt", "updatedAt", "deletedAt"]
-          }
-        }, {
-          model: PackageQuantitys,
-          attributes: {
-            exclude: ["createdAt", "updatedAt", "deletedAt"]
-          }
-        }, {
-          model: States,
-          attributes: {
-            exclude: ["createdAt", "updatedAt", "deletedAt"]
-          }
-        }], attributes: {
-          exclude: ["createdAt", "updatedAt", "deletedAt"]
-        }, raw: true, transaction
-      });
+    const data = await Products.findAll({
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "deletedAt"]
+      }
+    });
 
-      return data
-    }).catch((err) => {
-      throw err;
-    })
+    return data
   },
   post: async (body: any) => {
     await connection.transaction(async (transaction) => {
