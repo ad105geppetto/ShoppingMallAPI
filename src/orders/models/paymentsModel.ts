@@ -3,9 +3,9 @@ import { Table, Model, Column, DataType } from "sequelize-typescript"
 @Table({
   paranoid: true,
   timestamps: true,
-  tableName: "package_quantitys"
+  tableName: "payments"
 })
-export class PackageQuantitys extends Model {
+export class Payments extends Model {
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -15,26 +15,20 @@ export class PackageQuantitys extends Model {
   id!: number;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.STRING,
     allowNull: false
   })
-  detail_id!: number;
+  payment_code!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false
   })
-  package_quantity!: string;
+  payment_method!: string;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.STRING,
     allowNull: false
   })
-  price!: number;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false
-  })
-  state_id!: number;
+  total_payment_amount!: string;
 }

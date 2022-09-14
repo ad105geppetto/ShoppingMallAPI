@@ -15,26 +15,20 @@ export class Orders extends Model {
   id!: number;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: false
   })
-  order_code!: string;
-
-  @Column({
-    type: DataType.STRING,
-    allowNull: false
-  })
-  order_state!: string;
-
-  @Column({
-    type: DataType.STRING,
-    allowNull: false
-  })
-  payment_state!: string;
+  user_id!: number;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: false
   })
-  order_detail_id!: number;
+  product_id!: number;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
+  quantity!: number;
 }
