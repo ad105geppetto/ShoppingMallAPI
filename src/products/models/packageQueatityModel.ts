@@ -27,10 +27,10 @@ export class PackageQuantitys extends Model {
   package_quantity!: string;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: false
   })
-  price!: string;
+  price!: number;
 
   @Column({
     type: DataType.INTEGER,
