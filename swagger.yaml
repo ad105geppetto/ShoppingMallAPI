@@ -1,0 +1,290 @@
+openapi: 3.0.3
+info:
+  title: ShoppingMall API
+  description: |-
+    회원 등급에 따른 쇼핑몰 상품 CRUD 및 주문/결제 서비스 제공 API입니다.
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: product
+    description: 상품에 대한 CRUD
+    externalDocs:
+      description: Find out more
+      url: http://localhost:3000/api/products
+  - name: signup
+    description: 유저의 회원가입
+    externalDocs:
+      description: Find out more
+      url: http://localhost:3000/api/signup
+  - name: login
+    description: 유저의 로그인
+    externalDocs:
+      description: Find out more
+      url: http://localhost:3000/api/login
+  - name: dropout
+    description: 유저의 회원탈퇴
+    externalDocs:
+      description: Find out more
+      url: http://localhost:3000/api/dropout
+  - name: order
+    description: 주문 등록
+    externalDocs:
+      description: Find out more
+      url: http://localhost:3000/api/orders
+paths:
+  /api/products/{id}:
+    get:
+      tags:
+        - product
+      summary: "하나의 상품 게시글 GET 요청"
+      description: "id Params를 사용"
+      operationId: getProductById
+      parameters:
+        - name: id
+          in: path
+          description: "상품 게시글 ID"
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      user_id:
+                        type: integer
+                        example: 1
+                      title:
+                        type: string
+                        example: "오늘의 공지사항"
+                      content:
+                        type: string
+                        example: "공지사항 내용"
+                      type:
+                        type: integer
+                        example: 1
+                      createdAt:
+                        type: string
+                        example: "2022-09-04T16:02:30.000Z"
+                      updatedAt:
+                        type: string
+                        example: "2022-09-04T16:02:30.000Z"
+                      deletedAt:
+                        type: string
+                        example: null
+                  message:
+                    type: string
+                    example: "SUCCESS"
+        "404":
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Not Found"
+                  data:
+                    type: string
+                    example: null
+        "500":
+          description: Internal Server Error
+    patch:
+      tags:
+        - noticeboard
+      summary: "상품 게시글 수정"
+      description: "상품 게시글 PATCH 요청"
+      operationId: patchProduct
+      parameters:
+        - name: id
+          in: path
+          description: "상품 게시글 ID"
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Create a new pet in the store
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "배 3kg 추가"
+                content:
+                  type: string
+                  example: "내용수정수정수정"
+                user:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    grade:
+                      type: integer
+                      example: 1
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "SUCCESS"
+        "500":
+          description: Internal Server Error
+    delete:
+      tags:
+        - noticeboard
+      summary: "상품 게시글 삭제"
+      description: "상품 게시글 DELETE 요청"
+      operationId: deleteNoticeboard
+      parameters:
+        - name: id
+          in: path
+          description: "상품 게시글 ID"
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: grade
+          description: "유저 등급"
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Success
+        "500":
+          description: Internal Server Error
+  /api/products:
+    get:
+      tags:
+        - product
+      summary: "전체 상품 게시글 GET 요청"
+      description: "전체 상품 게시글 GET 요청"
+      operationId: getProduct
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        title:
+                          type: string
+                          example: "자두 2kg 팝니다."
+                        thumbnail_image_path:
+                          type: string
+                          example: "http://shopping-mall.com/public/image/asvidke"
+        "404":
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Not Found"
+                  data:
+                    type: string
+                    example: null
+        "500":
+          description: Internal Server Error
+    post:
+      tags:
+        - product
+      summary: "상품 게시글 추가"
+      description: "상품 게시글 POST 요청"
+      operationId: postProduct
+      requestBody:
+        description: "상품 게시글 POST 요청"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "배 1kg 팝니다."
+                thumbnail_image_path:
+                  type: string
+                  example: "http://shopping-mall.com/public/image/girkndn"
+                phone_number:
+                  type: string
+                  example: "010-555-5555"
+                best_by:
+                  type: string
+                  example: "2022-11-21"
+                country_of_origin:
+                  type: string
+                  example: "한국"
+                shipping:
+                  type: string
+                  example: "배송"
+                producer:
+                  type: string
+                  example: "하와이마트"
+                delivery_fee:
+                  type: string
+                  example: "3000원"
+                content:
+                  type: string
+                  example: "내용글내용글내용글"
+                detail_id:
+                  type: integer
+                  example: 1
+                package_quantity:
+                  type: string
+                  example: "1kg"
+                price:
+                  type: integer
+                  example: 10000
+                state_id:
+                  type: integer
+                  example: null
+                image_path:
+                  type: string
+                  example: "http://shopping-mall.com/public/image/difnelsidlgdof"
+        required: true
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "SUCCESS"
+        "500":
+          description: Internal Server Error

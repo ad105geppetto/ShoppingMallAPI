@@ -33,8 +33,7 @@ export class PackageQuantitys extends Model {
   price!: number;
 
   @Column({
-    type: DataType.INTEGER,
-    allowNull: false
+    type: DataType.INTEGER
   })
   state_id!: number;
 }

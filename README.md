@@ -24,7 +24,7 @@
 
 ## 📌 API 문서
 
-(작업 예정)
+https://app.swaggerhub.com/apis/ad105geppetto/ShoppingMallAPI/1.0.0
 
 ## 📌 적용 기술
 

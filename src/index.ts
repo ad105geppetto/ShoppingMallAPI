@@ -10,7 +10,7 @@ const port = 3000
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/", indexRouter);
+app.use("/api", indexRouter);
 
 connection.sync({ force: true }).then(async () => {
   console.log("Database synced successfully")
