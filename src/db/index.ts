@@ -8,6 +8,7 @@ import { Grades } from '../users/models/gradeModel';
 import { Users } from '../users/models/usersModel';
 import { Orders } from '../orders/models/orderModel';
 import { OrderDetails } from '../orders/models/orderDetailModel';
+import { Payments } from '../orders/models/paymentsModel';
 import { config } from './config'
 
 const connection = new Sequelize(
@@ -18,7 +19,7 @@ const connection = new Sequelize(
     host: config.development.host,
     dialect: 'mysql',
     logging: false,
-    models: [Products, Details, DetailImages, PackageQuantitys, States, Grades, Users, Orders, OrderDetails]
+    models: [Products, Details, DetailImages, PackageQuantitys, States, Grades, Users, Orders, OrderDetails, Payments]
   }
 )
 
@@ -38,5 +39,7 @@ Users.belongsToMany(Products, { through: Orders, foreignKey: "user_id" })
 Products.belongsToMany(Users, { through: Orders, foreignKey: "product_id" })
 Orders.hasMany(OrderDetails, { foreignKey: 'order_detail_id' })
 OrderDetails.belongsTo(Orders, { foreignKey: 'order_detail_id' })
+OrderDetails.hasOne(Payments, { foreignKey: "id" })
+Payments.belongsTo(OrderDetails, { foreignKey: "id" })
 
 export default connection
