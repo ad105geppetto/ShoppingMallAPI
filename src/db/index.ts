@@ -34,9 +34,9 @@ PackageQuantitys.belongsTo(States, { foreignKey: 'state_id' })
 Grades.hasMany(Users, { foreignKey: "grade_id" })
 Users.belongsTo(Grades, { foreignKey: "grade_id" })
 
-Users.belongsToMany(Products, { through: OrderDetails, foreignKey: "user_id" })
-Products.belongsToMany(Users, { through: OrderDetails, foreignKey: "product_id" })
-OrderDetails.hasMany(Orders, { foreignKey: 'order_detail_id' })
-Orders.belongsTo(OrderDetails, { foreignKey: 'order_detail_id' })
+Users.belongsToMany(Products, { through: Orders, foreignKey: "user_id" })
+Products.belongsToMany(Users, { through: Orders, foreignKey: "product_id" })
+Orders.hasMany(OrderDetails, { foreignKey: 'order_detail_id' })
+OrderDetails.belongsTo(Orders, { foreignKey: 'order_detail_id' })
 
 export default connection
