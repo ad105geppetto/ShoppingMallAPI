@@ -4,6 +4,8 @@ import { Payments } from "./models/paymentsModel";
 import { PackageQuantitys } from "../products/models/packageQueatityModel";
 import connection from '../db';
 import { Details } from "../products/models/detailModel";
+import NotFoundProduct from "./exception/NotFoundProduct";
+import NotFoundDetail from "./exception/NotFoundDetail";
 
 export default {
   setOrder: async (body: any) => {
@@ -15,12 +17,12 @@ export default {
       const orderCode = dateString + timeString
       const product = await PackageQuantitys.findOne({ where: { detail_id: body.product_id }, raw: true, transaction })
       if (!product) {
-        throw new Error();
+        throw new NotFoundProduct();
       }
 
       const detail = await Details.findOne({ where: { id: product.id }, raw: true, transaction })
       if (!detail) {
-        throw new Error();
+        throw new NotFoundDetail();
       }
       const totalPayment = order.quantity * product.price + detail.delivery_fee
       await Payments.create({ payment_code: `zz${orderCode}z`, payment_method: "배송", total_payment_amount: `${totalPayment} 원` }, { raw: true, transaction })

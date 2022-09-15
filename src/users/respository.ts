@@ -1,11 +1,8 @@
 import { Users } from "./models/usersModel"
 import module from "./modules/hashPassword"
+import NotFoundUser from "./exception/NotFoundUser";
+import NotEqualPassword from "./exception/NotEqualPassword";
 import connection from '../db';
-
-interface user {
-  password: string,
-  salt: string
-}
 
 export default {
   signup: async (body: any) => {
@@ -14,15 +11,15 @@ export default {
   },
   login: async (body: any) => {
     const user = await Users.findOne({ where: { email: body.email }, raw: true });
-
+    console.log(user)
     if (!user) {
-      throw new Error();
+      throw new NotFoundUser();
     }
 
     const newHashedPassword = module.makePasswordHashed(body.password, user.salt)
 
     if (newHashedPassword !== user.password) {
-      throw new Error();
+      throw new NotEqualPassword();
     }
 
     return { userId: user.id }
@@ -32,7 +29,7 @@ export default {
       const user = await Users.findOne({ where: { id: userId }, raw: true, transaction });
 
       if (!user) {
-        throw new Error();
+        throw new NotFoundUser();
       }
 
       await Users.destroy({
