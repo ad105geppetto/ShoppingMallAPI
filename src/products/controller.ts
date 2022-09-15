@@ -15,7 +15,7 @@ export default {
   },
   post: async (req: Request, res: Response) => {
     try {
-      service.post(req.body)
+      service.post(req.body, req.headers)
       return res.status(StatusCodes.CREATED).json({ message: "success" })
     } catch (error: any) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
@@ -38,7 +38,7 @@ export default {
   patch: async (req: Request, res: Response) => {
     try {
       const productId = Number(req.params.id)
-      const data = await service.patch(productId, req.body)
+      const data = await service.patch(productId, req.body, req.headers)
       return res.status(StatusCodes.OK).json({ message: "success" })
     } catch (error: any) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
@@ -49,7 +49,7 @@ export default {
   delete: async (req: Request, res: Response) => {
     try {
       const productId = Number(req.params.id)
-      await service.delete(productId)
+      await service.delete(productId, req.headers)
       return res.status(StatusCodes.OK).json({ message: "success" })
     } catch (error: any) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({

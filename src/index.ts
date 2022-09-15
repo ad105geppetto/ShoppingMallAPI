@@ -28,7 +28,7 @@ connection.sync({ force: true }).then(async () => {
   })
   await Products.create({
     title: "싱싱한 자두 1kg/3kg",
-    thumbnail_image_path: "http://shopping-mall.com",
+    thumbnail_image_path: "http://shopping-mall.com/public/thumnail_image/didkdkdnf",
   })
   await Details.create({
     content: "싱싱한 자두 1kg/3kg",

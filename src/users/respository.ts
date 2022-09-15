@@ -22,7 +22,7 @@ export default {
       throw new NotEqualPassword();
     }
 
-    return { userId: user.id }
+    return { userId: user.id, grade: user.grade_id }
   },
   dropout: async (userId: number) => {
     return await connection.transaction(async (transaction) => {
