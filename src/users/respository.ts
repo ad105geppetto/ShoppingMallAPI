@@ -25,7 +25,7 @@ export default {
       throw new Error();
     }
 
-    return user.id
+    return { userId: user.id }
   },
   dropout: async (userId: number) => {
     return await connection.transaction(async (transaction) => {

@@ -17,10 +17,10 @@ export default {
   },
   post: async (body: any) => {
     await connection.transaction(async (transaction) => {
-      await Products.create(body, { raw: true, transaction });
+      const product = await Products.create(body, { raw: true, transaction });
       await Details.create(body, { raw: true, transaction });
-      await DetailImages.create(body, { raw: true, transaction });
-      await PackageQuantitys.create(body, { raw: true, transaction });
+      await DetailImages.create({ ...body, detail_id: product.id }, { raw: true, transaction });
+      await PackageQuantitys.create({ ...body, detail_id: product.id }, { raw: true, transaction });
     }).catch((err) => {
       throw err;
     })
@@ -29,31 +29,33 @@ export default {
     return await connection.transaction(async (transaction) => {
       const data1 = await Products.findOne({
         where: { id: productId },
-        include: [{
-          model: Details,
-          attributes: {
-            exclude: ["createdAt", "updatedAt", "deletedAt"]
-          }
-        }], attributes: {
+        attributes: {
           exclude: ["createdAt", "updatedAt", "deletedAt"]
         }, raw: true, transaction
       });
 
-      const data2 = await DetailImages.findOne({
-        where: { detail_id: productId },
+      const data2 = await Details.findOne({
+        where: { id: productId },
         attributes: {
-          exclude: ["createdAt", "updatedAt", "deletedAt"]
+          exclude: ["id", "createdAt", "updatedAt", "deletedAt"]
         }, raw: true, transaction
       })
 
-      const data3 = await PackageQuantitys.findOne({
+      const data3 = await DetailImages.findOne({
         where: { detail_id: productId },
         attributes: {
-          exclude: ["createdAt", "updatedAt", "deletedAt"]
+          exclude: ["id", "detail_id", "createdAt", "updatedAt", "deletedAt"]
         }, raw: true, transaction
       })
 
-      return [data1, data2, data3]
+      const data4 = await PackageQuantitys.findOne({
+        where: { detail_id: productId },
+        attributes: {
+          exclude: ["id", "detail_id", "createdAt", "updatedAt", "deletedAt"]
+        }, raw: true, transaction
+      })
+
+      return { ...data1, ...data2, ...data3, ...data4 }
     }).catch((err) => {
       throw err;
     })

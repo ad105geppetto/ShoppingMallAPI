@@ -39,7 +39,7 @@ Users.belongsToMany(Products, { through: Orders, foreignKey: "user_id" })
 Products.belongsToMany(Users, { through: Orders, foreignKey: "product_id" })
 Orders.hasMany(OrderDetails, { foreignKey: 'order_detail_id' })
 OrderDetails.belongsTo(Orders, { foreignKey: 'order_detail_id' })
-OrderDetails.hasOne(Payments, { foreignKey: "id" })
-Payments.belongsTo(OrderDetails, { foreignKey: "id" })
+Orders.hasOne(Payments, { foreignKey: "id" })
+Payments.belongsTo(Orders, { foreignKey: "id" })
 
 export default connection

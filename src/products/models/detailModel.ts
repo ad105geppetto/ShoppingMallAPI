@@ -13,10 +13,10 @@ export class Details extends Model {
   content!: string;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: false
   })
-  delivery_fee!: string;
+  delivery_fee!: number;
 
   @Column({
     type: DataType.STRING,
