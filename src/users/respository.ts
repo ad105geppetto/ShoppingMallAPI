@@ -11,7 +11,7 @@ export default {
   },
   login: async (body: any) => {
     const user = await Users.findOne({ where: { email: body.email }, raw: true });
-    console.log(user)
+
     if (!user) {
       throw new NotFoundUser();
     }
